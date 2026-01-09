@@ -24,5 +24,3 @@ urlpatterns = [
     path("auth/", include("userauth.urls")),
     path("campos/", include("campos.urls")),
 ]
-
-
