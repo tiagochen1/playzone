@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Sign In to PLAYZONE</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+</form>
+
+<a href="{% url 'userauth:register' %}">Registar</a><br>
+<a href="{% url 'userauth:password_reset' %}">Recuperar senha</a>
+{% endblock %}

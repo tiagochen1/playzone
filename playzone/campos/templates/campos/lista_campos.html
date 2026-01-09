@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div>
+            <h2>PLAYZONE</h2>
+
+            <nav>
+                <ul>
+                    <li>📋 Lista de Campos</li>
+                    <li>🔖 Minhas Reservas</li>
+                    <li>📅 Histórico</li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="user-area">
+            <div class="user-circle">
+                {{ user.username|first|upper|default:"U" }}
+            </div>
+
+            {% if user.is_authenticated %}
+                <span>Hello, {{ user.username }}!</span>
+            {% else %}
+                <a href="{% url 'userauth:login' %}">Hello, User!</a>
+            {% endif %}
+        </div>
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <main class="content">
+        <h1>Lista de Campos</h1>
+
+        <!-- Cabeçalho -->
+        <div class="card card-header">
+            <span>Campo</span>
+            <span>Desporto</span>
+            <span>Preço</span>
+            <span></span>
+        </div>
+
+        <!-- Linha -->
+        <div class="card">
+            <span>Campo A</span>
+            <span>Futebol</span>
+            <span>40€/hora</span>
+            <button class="btn btn-green">Reservar</button>
+        </div>
+
+    </main>
+
+</div>
+{% endblock %}
