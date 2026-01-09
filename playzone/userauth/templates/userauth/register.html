@@ -1,10 +1,39 @@
-{% extends "base.html" %}
-{% block content %}
-<h2>Sign Up to PLAYZONE</h2>
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Registar | PlayZone</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Registar</button>
-</form>
-{% endblock %}
+<div class="login-layout">
+
+   
+    <div class="login-left">
+        <h2 class="login-brand">PLAYZONE</h2>
+
+        <h1 class="login-title">Sign Up to PLAYZONE</h1>
+
+        <form method="post" class="login-form">
+            {% csrf_token %}
+
+            {{ form.username }}
+            {{ form.email }}
+            {{ form.password1 }}
+            {{ form.password2 }}
+
+            <div class="login-actions">
+                <button type="submit" class="btn btn-dark">REGISTAR</button>
+            </div>
+        </form>
+    </div>
+
+    
+    <div class="login-right"></div>
+
+</div>
+
+</body>
+</html>

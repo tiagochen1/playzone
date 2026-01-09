@@ -4,8 +4,35 @@ from django.contrib.auth.models import User
 
 
 class RegisterForm(UserCreationForm):
-    email = forms.EmailField(required=True)
+    email = forms.EmailField(
+        required=True,
+        widget=forms.EmailInput(attrs={
+            "placeholder": "Email"
+        })
+    )
 
     class Meta:
         model = User
         fields = ["username", "email", "password1", "password2"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+       
+        self.fields["username"].widget.attrs.update({
+            "placeholder": "Nome",
+        })
+
+        
+        self.fields["password1"].widget.attrs.update({
+            "placeholder": "Password",
+        })
+
+        
+        self.fields["password2"].widget.attrs.update({
+            "placeholder": "Confirm Password",
+        })
+
+        # Remover textos de ajuda do django
+        for field in self.fields.values():
+            field.help_text = ""

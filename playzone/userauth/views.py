@@ -18,7 +18,7 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect("campos:list")  # depois ajustamos
+            return redirect("campos:list")
     else:
         form = RegisterForm()
 

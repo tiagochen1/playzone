@@ -1,13 +1,42 @@
-{% extends "base.html" %}
-{% block content %}
-<h2>Sign In to PLAYZONE</h2>
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | PlayZone</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-</form>
+<div class="login-layout">
 
-<a href="{% url 'userauth:register' %}">Registar</a><br>
-<a href="{% url 'userauth:password_reset' %}">Recuperar senha</a>
-{% endblock %}
+    
+    <div class="login-left">
+        <h2 class="login-brand">PLAYZONE</h2>
+
+        <h1 class="login-title">Sign In to PLAYZONE</h1>
+
+        <form method="post" class="login-form">
+            {% csrf_token %}
+
+            <input type="text" name="username" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+
+            <div class="login-actions">
+                <button type="submit" class="btn btn-dark">Login</button>
+                <a href="{% url 'userauth:register' %}" class="btn btn-light">Registar</a>
+            </div>
+        </form>
+    </div>
+
+    
+    <div class="login-right">
+        <a href="{% url 'userauth:password_reset' %}" class="recover-btn">
+            RECUPERAR SENHA
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>
