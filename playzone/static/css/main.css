@@ -128,7 +128,7 @@ body {
 ======================= */
 .card-header {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr auto;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
     align-items: center;
     padding: 16px 28px;
     min-height: 60px;
@@ -141,26 +141,28 @@ body {
 
 .card {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr auto;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
     align-items: center;
-    padding: 18px 28px;
+    padding: 16px 28px;
     min-height: 60px;
     background: #ffffff;
     border-radius: 16px;
     box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-    margin-bottom: 16px;
+    margin-bottom: 18px;
 }
 
 /* =======================
    BOTÕES
 ======================= */
 .btn {
-    padding: 8px 18px;
     border-radius: 20px;
-    border: none;
+    border: 3px solid #2f8f4e;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
+    width: 120px;
+    padding: 6px 0;
+    justify-self: end;
 }
 
 .btn-green {
@@ -169,7 +171,7 @@ body {
 }
 
 .btn-green:hover {
-    background: #43a047;
+    background: #86c796;
 }
 
 
