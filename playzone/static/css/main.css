@@ -255,6 +255,24 @@ body {
     margin-top: 10px;
 }
 
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px 24px;
+  font-size: 14px;
+  font-weight: 500;
+
+  border-radius: 999px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+
+  background: none;
+  outline: none;
+}
+
 .btn-dark {
     background: #444;
     color: #fff;
@@ -264,12 +282,8 @@ body {
     cursor: pointer;
 }
 
-.btn-light {
-    background: #ccc;
-    color: #fff;
-    padding: 10px 22px;
-    border-radius: 6px;
-    text-decoration: none;
+.btn-dark:hover{
+    background: #646464;
 }
 
 
