@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
-from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 
 from .forms import RegisterForm
 
@@ -27,3 +27,7 @@ def register_view(request):
 
 def password_reset_view(request):
     return render(request, "userauth/password_reset.html")
+
+@login_required #impede os utilizadores que não tem conta acedam esta pagina
+def profile_view(request):
+    return render(request, "userauth/profile.html")

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content">
+
+    <h1>Perfil</h1>
+
+    <div class="profile-card">
+
+        <div class="profile-avatar">
+            {{ user.username|first|upper }}
+        </div>
+
+        <div class="profile-details">
+            <p class="profile-name">
+                <strong>Nome:</strong> {{ user.username }}
+            </p>
+
+            <p class="profile-email">
+                <strong>Email:</strong> {{ user.email }}
+            </p>
+        </div>
+
+        <div class="profile-actions">
+            <a href="{% url 'userauth:logout' %}" class="btn btn-dark">
+                Logout
+            </a>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

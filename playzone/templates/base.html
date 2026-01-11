@@ -1,14 +1,50 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
     <title>PlayZone</title>
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body>
 
-{% block content %}{% endblock %}
+<div class="layout">
+
+    <!-- SIDEBAR GLOBAL -->
+    <aside class="sidebar">
+        <div>
+            <h2>PLAYZONE</h2>
+
+            <nav>
+                <ul>
+                    <li>
+                        <a href="{% url 'campos:list' %}">📋 Lista de Campos</a>
+                    </li>
+                    <li>🔖 Minhas Reservas</li>
+                    <li>📅 Histórico</li>
+                </ul>
+            </nav>
+        </div>
+
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'userauth:profile' %}" class="user-area user-link">
+                <div class="user-circle">
+                    {{ request.user.username|first|upper }}
+                </div>
+                <span>Hello, {{ request.user.username }}!</span>
+            </a>
+        {% else %}
+            <a href="{% url 'userauth:login' %}" class="user-area user-link">
+                <div class="user-circle">U</div>
+                <span>Hello, User!</span>
+            </a>
+        {% endif %}
+    </aside>
+
+    <!-- CONTEÚDO DINÂMICO -->
+    {% block content %}{% endblock %}
+
+</div>
 
 </body>
 </html>

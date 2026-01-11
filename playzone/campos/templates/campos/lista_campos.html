@@ -1,57 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="layout">
+<div class="content">
+    <h1>Lista de Campos</h1>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <div>
-            <h2>PLAYZONE</h2>
-
-            <nav>
-                <ul>
-                    <li>📋 Lista de Campos</li>
-                    <li>🔖 Minhas Reservas</li>
-                    <li>📅 Histórico</li>
-                </ul>
-            </nav>
-        </div>
-
-        <a href="{% url 'userauth:login' %}" class="user-area user-link">
-            <div class="user-circle">
-                {{ user.username|first|upper|default:"U" }}
-            </div>
-
-            {% if user.is_authenticated %}
-                <span>Hello, {{ user.username }}!</span>
-            {% else %}
-                <span>Hello, User!</span>
-            {% endif %}
-        </a>
-
-    </aside>
-
-    <!-- CONTEÚDO -->
-    <main class="content">
-        <h1>Lista de Campos</h1>
-
-        <!-- Cabeçalho -->
-        <div class="card card-header">
+        <div class="card-header">
             <span>Campo</span>
             <span>Desporto</span>
             <span>Preço</span>
             <span></span>
         </div>
 
-        <!-- Linha -->
         <div class="card">
             <span>Campo A</span>
             <span>Futebol</span>
             <span>40€/hora</span>
             <button class="btn btn-green">Reservar</button>
         </div>
-
-    </main>
-
+    </div>
 </div>
 {% endblock %}
