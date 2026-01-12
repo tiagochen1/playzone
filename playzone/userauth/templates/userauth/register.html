@@ -18,15 +18,21 @@
 
         <form method="post" class="login-form">
             {% csrf_token %}
+            
+            <form method="post">
+                {% csrf_token %}
 
-            {{ form.username }}
-            {{ form.email }}
-            {{ form.password1 }}
-            {{ form.password2 }}
+                <input type="text" name="username" placeholder="Nome" required>
 
-            <div class="login-actions">
+                <input type="email" name="email" placeholder="Email" required>
+
+                <input type="password" name="password1" placeholder="Password" required>
+
+                <input type="password" name="password2" placeholder="Confirm Password" required>
+
                 <button type="submit" class="btn btn-dark">REGISTAR</button>
-            </div>
+            </form>
+
         </form>
     </div>
 

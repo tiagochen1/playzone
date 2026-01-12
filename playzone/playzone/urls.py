@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.shortcuts import redirect
 
 urlpatterns = [
-    path("", lambda request: redirect("campos:list")),
+    path("", lambda request: redirect("/auth/login/")), #temporario path("", lambda request: redirect("campos:list")),
     path("admin/", admin.site.urls),
     path("auth/", include("userauth.urls")),
     path("campos/", include("campos.urls")),
