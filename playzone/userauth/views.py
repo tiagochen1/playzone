@@ -18,12 +18,16 @@ def register_view(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            print("UTILIZADOR CRIADO:", user.username)
             return redirect("userauth:login")
+        else:
+            print("ERROS DO FORM:", form.errors)  # 👈 OBRIGATÓRIO
     else:
         form = RegisterForm()
 
     return render(request, "userauth/register.html", {"form": form})
+
 
 
 def password_reset_view(request):

@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView
 from .models import Campo
 
 
-class CampoListView(LoginRequiredMixin, ListView):
+class CampoListView(ListView):
     model = Campo
     template_name = "campos/lista_campos.html"
     context_object_name = "campos"
