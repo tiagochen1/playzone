@@ -15,9 +15,9 @@
     <div>
       <div class="pz-brand">PLAYZONE</div>
       <nav class="pz-nav">
-        <a class="pz-nav-link {% if request.resolver_match.url_name == 'campos_list' %}active{% endif %}" href="{% url 'campos:campos_list' %}">📋 Lista de Campos</a>
-        <a class="pz-nav-link {% if request.resolver_match.url_name == 'minhas_reservas' %}active{% endif %}" href="{% url 'campos:minhas_reservas' %}">🔖 Minhas Reservas</a>
-        <a class="pz-nav-link {% if request.resolver_match.url_name == 'historico' %}active{% endif %}" href="{% url 'campos:historico' %}">📅 Histórico</a>
+        <a class="pz-nav-link {% if request.resolver_match.url_name == 'campos_list' %}active{% endif %}" href="{% url 'campos:list' %}">📋 Lista de Campos</a>
+        <a class="pz-nav-link {% if request.resolver_match.url_name == 'minhas_reservas' %}active{% endif %}" href="#">🔖 Minhas Reservas</a>
+        <a class="pz-nav-link {% if request.resolver_match.url_name == 'historico' %}active{% endif %}" href="#">📅 Histórico</a>
       </nav>
     </div>
 
