@@ -1,0 +1,21 @@
+  <aside class="pz-sidebar">
+    <div>
+      <div class="pz-brand">PLAYZONE</div>
+      <nav class="pz-nav">
+        <a class="pz-nav-link {% if request.resolver_match.url_name == 'admin_dashboard' %}active{% endif %}" href="{#}">📊 DashBoard</a>
+        <a class="pz-nav-link" href="{#}">⚙️ Customs</a>
+      </nav>
+    </div>
+
+    <div class="pz-user">
+      <div class="pz-avatar">{{ request.user.username|first|upper }}</div>
+      <div>
+        <div class="small text-muted">Hello,</div>
+        <div class="fw-semibold">Admin!</div>
+        <div class="mt-2">
+          <a class="link-secondary small" href="{% url 'userauth:logout' %}">Sair</a>
+        </div>
+      </div>
+    </div>
+  </aside>
+
