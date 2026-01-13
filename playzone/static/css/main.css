@@ -460,3 +460,41 @@ body {
     margin-bottom: 12px;
     width: 220px;
 }
+
+
+/* =======================
+   Minhas Reservas
+======================= */
+
+.reserva-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+
+.reserva-title {
+    margin-bottom: 16px;
+}
+
+.reserva-body {
+    display: flex;
+    gap: 32px;
+}
+
+.reserva-image {
+    width: 220px;
+    height: 220px;
+    background: #ddd;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.reserva-info p {
+    margin-bottom: 8px;
+    color: #555;
+}

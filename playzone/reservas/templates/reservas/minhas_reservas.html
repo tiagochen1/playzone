@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content">
+
+    <h1>Minhas Reservas</h1>
+
+    {% for reserva in reservas %}
+    <div class="reserva-card">
+
+        <h3 class="reserva-title">{{ reserva.campo.nome }}</h3>
+
+        <div class="reserva-body">
+
+            <!-- Imagem do campo -->
+            <div class="reserva-image">
+                <span>Foto do Campo</span>
+            </div>
+
+            <!-- Informações -->
+            <div class="reserva-info">
+                <p><strong>Desporto:</strong> {{ reserva.campo.desporto }}</p>
+                <p><strong>Preço:</strong> {{ reserva.campo.preco }}€ / hora</p>
+                <p><strong>Dia:</strong> {{ reserva.data|date:"d \\d\\e F" }}</p>
+                <p><strong>Horário:</strong> {{ reserva.hora|time:"H:i" }}h</p>
+
+                <form method="post" action="{% url 'reservas:cancelar' reserva.id %}">
+                    {% csrf_token %}
+                    <button class="btn btn-danger">
+                        Cancelar Reserva
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    {% empty %}
+        <p class="text-muted">Ainda não tens reservas.</p>
+    {% endfor %}
+
+</div>
+{% endblock %}

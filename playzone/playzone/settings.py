@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'userauth',
     'campos',
+    'reservas',
 ]
 
 MIDDLEWARE = [

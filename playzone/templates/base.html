@@ -12,42 +12,10 @@
 <div class="layout">
 
     <!-- SIDEBAR GLOBAL -->
-    <aside class="sidebar">
-        <div>
-            <h2>PLAYZONE</h2>
-
-            <nav>
-                <ul>
-                    <li>
-                        <a href="{% url 'campos:list' %}">📋 Lista de Campos</a>
-                    </li>
-                    <li>🔖 Minhas Reservas</li>
-                    <li>📅 Histórico</li>
-                </ul>
-            </nav>
-        </div>
-
-        {% if request.user.is_authenticated %}
-            <a href="{% url 'userauth:profile' %}" class="user-area user-link">
-                <div class="user-circle">
-                    {{ request.user.username|first|upper }}
-                </div>
-                <span>Hello, {{ request.user.username }}!</span>
-            </a>
-        {% else %}
-            <a href="{% url 'userauth:login' %}" class="user-area user-link">
-                <div class="user-circle">U</div>
-                <span>Hello, User!</span>
-            </a>
-        {% endif %}
-    </aside>
+    {% include 'partials/sidebar_user.html' %}
 
     <!-- CONTEÚDO DINÂMICO -->
     {% block content %}{% endblock %}
-    {# Compat: ficheiros antigos estendiam base.html #}
-    {% include 'base_user.html' %}
-
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
