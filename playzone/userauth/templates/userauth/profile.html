@@ -22,9 +22,11 @@
         </div>
 
         <div class="profile-actions">
-            <a href="{% url 'userauth:logout' %}" class="btn btn-dark">
-                Logout
-            </a>
+            <form method="post" action="{% url 'userauth:logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-dark">Logout</button>
+            </form>
+
         </div>
 
     </div>

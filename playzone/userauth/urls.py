@@ -6,7 +6,7 @@ app_name = "userauth"
 
 urlpatterns = [
     path("login/", CustomLoginView.as_view(), name="login"),
-    path("logout/", LogoutView.as_view(), name="logout"),
+    path("logout/", LogoutView.as_view(next_page="campos:list"), name="logout"),
     path("register/", register_view, name="register"),
     path("password-reset/", password_reset_view, name="password_reset"),
     path("profile/", profile_view, name="profile"),
