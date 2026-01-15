@@ -2,14 +2,14 @@
 {% block title %}{% if modo == "criar" %}Adicionar Campo{% else %}Editar Campo{% endif %}{% endblock %}
 
 {% block content %}
-<h1 class="page-title">
+<div class="page-title">
   {% if modo == "criar" %}Adicionar Campo{% else %}Editar Campo{% endif %}
-</h1>
+</div>
 
 <div class="card p-4">
   <form method="post">
     {% csrf_token %}
-    {{ form.non_field_errors }}
+    {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
 
     <div class="mb-3">
       {{ form.nome.label_tag }}
@@ -32,8 +32,8 @@
       {{ form.estado }}
     </div>
 
-    <button class="btn btn-primary">Guardar</button>
-    <a class="btn btn-secondary" href="{% url 'campos:admin_campos_list' %}">Voltar</a>
+    <button class="btn btn-primary px-4">Guardar</button>
+    <a class="btn btn-outline-secondary px-4" href="{% url 'campos:admin_campos_list' %}">Voltar</a>
   </form>
 </div>
 {% endblock %}

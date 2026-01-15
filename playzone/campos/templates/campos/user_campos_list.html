@@ -1,8 +1,8 @@
 {% extends "base_user.html" %}
-{% block title %}Lista de Campos{% endblock %}
+{% block title %}Lista de Campos | PlayZone{% endblock %}
 
 {% block content %}
-<h1 class="page-title">Lista de Campos</h1>
+<div class="page-title">Lista de Campos</div>
 
 <div class="table-like">
   <div class="table-like-header">
@@ -14,23 +14,23 @@
 
   {% for campo in campos %}
   <div class="table-like-row">
-    <div>{{ campo.nome }}</div>
-    <div>
+    <div class="fw-bold">{{ campo.nome }}</div>
+    <div class="text-muted">
       {% for d in campo.desportos.all %}
         {{ d.nome }}{% if not forloop.last %}, {% endif %}
-      {% endfor %}
+      {% empty %}-{% endfor %}
     </div>
-    <div>{{ campo.preco_hora }}€/hora</div>
+    <div class="fw-bold">{{ campo.preco_hora }}€/hora</div>
     <div class="text-end">
       {% if campo.estado == "DISPONIVEL" %}
-        <a class="btn btn-success" href="{% url 'campos:reservar' campo.id %}">
-          Reservar
-        </a>
+        <a class="btn btn-success px-4" href="{% url 'campos:reservar' campo.id %}">Reservar</a>
       {% else %}
         <span class="badge bg-secondary">{{ campo.get_estado_display }}</span>
       {% endif %}
     </div>
   </div>
+  {% empty %}
+    <div class="p-3 text-muted">Ainda não há campos.</div>
   {% endfor %}
 </div>
 {% endblock %}

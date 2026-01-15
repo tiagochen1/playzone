@@ -1,33 +1,38 @@
 {% extends "base_user.html" %}
-{% block title %}Reservar Campo{% endblock %}
+{% block title %}Reservar | PlayZone{% endblock %}
 
 {% block content %}
-<h1 class="page-title">Reservar {{ campo.nome }}</h1>
+<div class="page-title">Reservar</div>
 
 <div class="card p-4">
-  <p><strong>Preço:</strong> {{ campo.preco_hora }}€/hora</p>
+  <div class="d-flex justify-content-between align-items-start mb-3">
+    <div>
+      <div class="fs-4 fw-bold">{{ campo.nome }}</div>
+      <div class="text-muted">Preço: {{ campo.preco_hora }}€/hora</div>
+    </div>
+    <a class="btn btn-outline-secondary" href="{% url 'campos:campos_list' %}">Voltar</a>
+  </div>
 
   <form method="post">
     {% csrf_token %}
-    {{ form.non_field_errors }}
+    {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
 
-    <div class="mb-3">
-      {{ form.data.label_tag }}
-      {{ form.data }}
+    <div class="row g-3">
+      <div class="col-md-4">
+        <label class="form-label">Data</label>
+        {{ form.data }}
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Hora</label>
+        {{ form.hora_inicio }}
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Duração (h)</label>
+        {{ form.duracao_horas }}
+      </div>
     </div>
 
-    <div class="mb-3">
-      {{ form.hora_inicio.label_tag }}
-      {{ form.hora_inicio }}
-    </div>
-
-    <div class="mb-3">
-      {{ form.duracao_horas.label_tag }}
-      {{ form.duracao_horas }}
-    </div>
-
-    <button class="btn btn-success">Reservar</button>
-    <a class="btn btn-secondary" href="{% url 'campos:campos_list' %}">Voltar</a>
+    <button class="btn btn-success mt-3 px-4">Reservar</button>
   </form>
 </div>
 {% endblock %}

@@ -1,0 +1,233 @@
+// Custom SCSS (PlayZone)
+// Compilar para: static/css/custom.css via python manage.py compile_scss
+
+// -------- Base tokens (Figma-like) --------
+$pz-bg: #f6f7fb;
+$pz-surface: #ffffff;
+$pz-border: #e7e9f2;
+$pz-text: #111827;
+$pz-muted: #6b7280;
+
+// brand-ish
+$pz-primary: #3b82f6; // blue
+$pz-success: #22c55e; // green
+$pz-danger: #ef4444;  // red
+$pz-dark: #0f172a;    // sidebar
+
+// Sizes
+$radius-lg: 18px;
+$radius-md: 14px;
+
+* { box-sizing: border-box; }
+body {
+  background: $pz-bg;
+  color: $pz-text;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+// -------- Bootstrap-like helpers  --------
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 18px 0;
+}
+
+.card {
+  border: 1px solid $pz-border !important;
+  border-radius: $radius-lg !important;
+  box-shadow: 0 10px 25px rgba(17, 24, 39, 0.06);
+}
+
+.btn {
+  border-radius: 12px !important;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: $pz-primary !important;
+  border-color: $pz-primary !important;
+}
+.btn-success {
+  background: $pz-success !important;
+  border-color: $pz-success !important;
+}
+.btn-danger {
+  background: $pz-danger !important;
+  border-color: $pz-danger !important;
+}
+
+.form-control, .form-select {
+  border-radius: 12px !important;
+  border: 1px solid $pz-border !important;
+  padding: 12px 12px !important;
+}
+label { font-weight: 600; }
+
+// -------- Auth split (Login/Registo/Reset) --------
+.auth-split {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 480px 1fr;
+}
+
+.auth-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  background: $pz-surface;
+  border-right: 1px solid $pz-border;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 360px;
+}
+
+.auth-brand {
+  font-weight: 900;
+  letter-spacing: 1px;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.auth-title {
+  font-size: 34px;
+  font-weight: 900;
+  margin: 0 0 18px 0;
+}
+
+.auth-right {
+  position: relative;
+  background: radial-gradient(1200px 600px at 70% 40%, rgba(59,130,246,0.30), rgba(255,255,255,0)),
+              linear-gradient(135deg, #dbeafe 0%, #f8fafc 45%, #eef2ff 100%);
+}
+
+.auth-right::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(0deg, rgba(15,23,42,0.15), rgba(15,23,42,0.05));
+  pointer-events: none;
+}
+
+// Link "recuperar senha"
+.auth-link-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 14px;
+  font-weight: 700;
+}
+
+// -------- Shell (User/Admin) --------
+.pz-shell {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+}
+
+.pz-sidebar {
+  background: $pz-dark;
+  color: #fff;
+  padding: 22px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pz-brand {
+  font-weight: 900;
+  letter-spacing: 1px;
+  font-size: 18px;
+  margin-bottom: 18px;
+}
+
+.pz-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pz-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  padding: 12px 12px;
+  border-radius: 14px;
+  font-weight: 700;
+}
+.pz-nav-link:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.08);
+}
+.pz-nav-link.active {
+  background: rgba(59,130,246,0.25);
+  color: #fff;
+}
+
+.pz-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.08);
+}
+
+.pz-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,0.15);
+  font-weight: 900;
+}
+
+.pz-content {
+  padding: 26px 28px;
+}
+
+
+.table-like {
+  border: 1px solid $pz-border;
+  border-radius: $radius-lg;
+  background: $pz-surface;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(17,24,39,0.06);
+}
+
+.table-like-header {
+  display: grid;
+  grid-template-columns: 1.4fr 1.4fr 0.7fr 0.7fr;
+  gap: 10px;
+  padding: 14px 16px;
+  background: #f3f4f6;
+  font-weight: 800;
+  color: #374151;
+}
+
+.table-like-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1.4fr 0.7fr 0.7fr;
+  gap: 10px;
+  padding: 14px 16px;
+  border-top: 1px solid $pz-border;
+  align-items: center;
+}
+
+.table-like-row:hover { background: #fbfbff; }
+
+.table-like-5 .table-like-header,
+.table-like-5 .table-like-row {
+  grid-template-columns: 1.2fr 1.2fr 0.7fr 0.8fr 0.6fr;
+}
+
+// -------- Badges / dots --------
+.badge {
+  border-radius: 999px !important;
+  padding: 8px 10px !important;
+  font-weight: 800 !important;
+}
