@@ -8,13 +8,13 @@ from django.utils import timezone
 from .models import Campo, Reserva
 
 
-#REGRA 2: campo tem de estar disponível
+# REGRA 2: campo tem de estar disponível
 def validar_campo_disponivel(campo: Campo):
     if campo.estado != Campo.Estado.DISPONIVEL:
         raise ValidationError("Este campo não está disponível para reservas.")
 
 
-#REGRA 3: não permitir reservas sobrepostas
+# REGRA 3: não permitir reservas sobrepostas
 def validar_conflito_reservas(
     campo: Campo,
     data,
@@ -38,14 +38,14 @@ def validar_conflito_reservas(
             raise ValidationError("Já existe uma reserva neste horário.")
 
 
-#REGRA 4: cancelamento só até X horas antes
+# REGRA 4: cancelamento só até X horas antes
 def pode_cancelar(reserva: Reserva, horas_limite: int = 2) -> bool:
     inicio = datetime.combine(reserva.data, reserva.hora_inicio)
     limite = inicio - timedelta(hours=horas_limite)
     return timezone.now() < limite
 
 
-#REGRA 5: receita mensal (admin dashboard)
+# REGRA 5: receita mensal (admin dashboard)
 def receita_mes_atual() -> float:
     agora = timezone.now()
     reservas = Reserva.objects.filter(
@@ -53,4 +53,18 @@ def receita_mes_atual() -> float:
         data__year=agora.year,
         data__month=agora.month,
     )
-    return sum(r.preco_total for r in reservas)
+    return float(sum(r.preco_total for r in reservas))
+
+
+def reservas_hoje() -> int:
+    hoje = timezone.localdate()
+    return Reserva.objects.filter(
+        data=hoje,
+        estado=Reserva.Estado.RESERVADA,
+    ).count()
+
+
+def campos_disponiveis_ratio() -> tuple[int, int]:
+    total = Campo.objects.count()
+    disponiveis = Campo.objects.filter(estado=Campo.Estado.DISPONIVEL).count()
+    return disponiveis, total

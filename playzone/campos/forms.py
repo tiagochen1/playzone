@@ -2,17 +2,20 @@ from __future__ import annotations
 
 from django import forms
 
-from .models import Reserva
-from .services import (
-    validar_campo_disponivel,
-    validar_conflito_reservas,
-)
+from .models import Campo, Reserva
+from .services import validar_campo_disponivel, validar_conflito_reservas
 
 
 class ReservaForm(forms.ModelForm):
     class Meta:
         model = Reserva
         fields = ["data", "hora_inicio", "duracao_horas"]
+
+        widgets = {
+            "data": forms.DateInput(attrs={"class": "form-control", "type": "date"}),
+            "hora_inicio": forms.TimeInput(attrs={"class": "form-control", "type": "time"}),
+            "duracao_horas": forms.NumberInput(attrs={"class": "form-control", "min": 1, "max": 8}),
+        }
 
     def __init__(self, *args, campo=None, **kwargs):
         super().__init__(*args, **kwargs)
@@ -34,3 +37,16 @@ class ReservaForm(forms.ModelForm):
         )
 
         return cleaned
+
+
+class CampoForm(forms.ModelForm):
+    class Meta:
+        model = Campo
+        fields = ["nome", "desportos", "preco_hora", "estado"]
+
+        widgets = {
+            "nome": forms.TextInput(attrs={"class": "form-control"}),
+            "desportos": forms.SelectMultiple(attrs={"class": "form-select", "size": 6}),
+            "preco_hora": forms.NumberInput(attrs={"class": "form-control", "step": "0.01", "min": "0"}),
+            "estado": forms.Select(attrs={"class": "form-select"}),
+        }

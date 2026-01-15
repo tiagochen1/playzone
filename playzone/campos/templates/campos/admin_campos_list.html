@@ -1,0 +1,77 @@
+{% extends "base_admin.html" %}
+{% block title %}Gestão de Campos{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="page-title mb-0">Gestão de Campos</h1>
+  <a class="btn btn-primary" href="{% url 'campos:admin_campo_create' %}">+ ADICIONAR CAMPO</a>
+</div>
+
+<form class="row g-2 mb-3" method="get">
+  <div class="col-md-5">
+    <input class="form-control" name="q" value="{{ q }}" placeholder="Pesquisar Campo">
+  </div>
+  <div class="col-md-3">
+    <select class="form-select" name="estado">
+      <option value="">Estado (todos)</option>
+      {% for value,label in estados %}
+        <option value="{{ value }}" {% if estado == value %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-3">
+    <select class="form-select" name="desporto">
+      <option value="">Desporto (todos)</option>
+      {% for d in desportos %}
+        <option value="{{ d.id }}" {% if desporto_id|slugify == d.id|slugify %}selected{% endif %}>{{ d.nome }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-1 d-grid">
+    <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
+  </div>
+</form>
+
+<div class="table-responsive">
+  <table class="table align-middle">
+    <thead>
+      <tr>
+        <th>Campo</th>
+        <th>Tipo de Desporto</th>
+        <th>Preço/hora</th>
+        <th>Estado</th>
+        <th class="text-end">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in campos %}
+      <tr>
+        <td class="fw-semibold">{{ c.nome }}</td>
+        <td>
+          {% for d in c.desportos.all %}
+            {{ d.nome }}{% if not forloop.last %}, {% endif %}
+          {% empty %}-{% endfor %}
+        </td>
+        <td>{{ c.preco_hora }}€</td>
+        <td>
+          {% if c.estado == "DISPONIVEL" %}
+            <span class="badge bg-success">Disponível</span>
+          {% elif c.estado == "MANUTENCAO" %}
+            <span class="badge bg-danger">Em Manutenção</span>
+          {% else %}
+            <span class="badge bg-secondary">Inativo</span>
+          {% endif %}
+        </td>
+        <td class="text-end">
+          <a class="btn btn-outline-primary btn-sm" href="{% url 'campos:admin_campo_edit' c.id %}">
+            Editar
+          </a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="5" class="text-muted">Sem campos.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
