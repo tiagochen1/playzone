@@ -1,28 +1,28 @@
 services:
-  playzone_web:
-    container_name: playzone_web
-    build:
-      context: ./docker
-    restart: unless-stopped
-    env_file:
-      - ./.env
-      - ./.env.db
-    ports:
-      - "5678:5678"
-      - "8000:8000"
-    volumes:
-      - ./playzone:/home/app/web
-
-  playzone_db:
-    container_name: playzone_db
+  db:
     image: postgres:16
+    container_name: playzone_db
     restart: unless-stopped
     env_file:
-      - ./.env.db
-    volumes:
-      - playzone_data:/var/lib/postgresql/data
+      - .env.db
     ports:
       - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  web:
+    build: .
+    container_name: playzone_web
+    restart: unless-stopped
+    env_file:
+      - .env
+      - .env.db
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - .:/app
 
 volumes:
-  playzone_data:
+  pgdata:

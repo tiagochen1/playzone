@@ -170,3 +170,27 @@ DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "no-reply@playzone.local")
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import os
+
+# ...
+
+ALLOWED_HOSTS = env_list("ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
+
+CSRF_TRUSTED_ORIGINS = env_list("CSRF_TRUSTED_ORIGINS", default=[])
+
+EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "no-reply@playzone.local")
+
+POSTGRES_ENGINE = os.getenv("POSTGRES_ENGINE")
+if POSTGRES_ENGINE:
+    DATABASES = {
+        "default": {
+            "ENGINE": POSTGRES_ENGINE,
+            "NAME": os.getenv("POSTGRES_DB", "playzone_db"),
+            "USER": os.getenv("POSTGRES_USER", "playzone_user"),
+            "PASSWORD": os.getenv("POSTGRES_PASSWORD", "playzone_pass"),
+            "HOST": os.getenv("POSTGRES_HOST", "playzone_db"),
+            "PORT": os.getenv("POSTGRES_PORT", "5432"),
+        }
+    }
