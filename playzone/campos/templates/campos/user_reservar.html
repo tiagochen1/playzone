@@ -1,0 +1,33 @@
+{% extends "base_user.html" %}
+{% block title %}Reservar Campo{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Reservar {{ campo.nome }}</h1>
+
+<div class="card p-4">
+  <p><strong>Preço:</strong> {{ campo.preco_hora }}€/hora</p>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <div class="mb-3">
+      {{ form.data.label_tag }}
+      {{ form.data }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.hora_inicio.label_tag }}
+      {{ form.hora_inicio }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.duracao_horas.label_tag }}
+      {{ form.duracao_horas }}
+    </div>
+
+    <button class="btn btn-success">Reservar</button>
+    <a class="btn btn-secondary" href="{% url 'campos:campos_list' %}">Voltar</a>
+  </form>
+</div>
+{% endblock %}

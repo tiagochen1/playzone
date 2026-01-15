@@ -1,0 +1,32 @@
+{% extends "base_user.html" %}
+{% block title %}Histórico{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Histórico</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Campo</th>
+      <th>Data</th>
+      <th>Estado</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in reservas %}
+    <tr>
+      <td>{{ r.campo.nome }}</td>
+      <td>{{ r.data }}</td>
+      <td>{{ r.get_estado_display }}</td>
+      <td>
+        <a class="btn btn-outline-primary btn-sm"
+           href="{% url 'campos:reservar' r.campo.id %}">
+          Voltar a Reservar
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base_user.html" %}
+{% block title %}Lista de Campos{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Lista de Campos</h1>
+
+<div class="table-like">
+  <div class="table-like-header">
+    <div>Campo</div>
+    <div>Desporto</div>
+    <div>Preço</div>
+    <div></div>
+  </div>
+
+  {% for campo in campos %}
+  <div class="table-like-row">
+    <div>{{ campo.nome }}</div>
+    <div>
+      {% for d in campo.desportos.all %}
+        {{ d.nome }}{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    </div>
+    <div>{{ campo.preco_hora }}€/hora</div>
+    <div class="text-end">
+      {% if campo.estado == "DISPONIVEL" %}
+        <a class="btn btn-success" href="{% url 'campos:reservar' campo.id %}">
+          Reservar
+        </a>
+      {% else %}
+        <span class="badge bg-secondary">{{ campo.get_estado_display }}</span>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base_user.html" %}
+{% block title %}Minhas Reservas{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Minhas Reservas</h1>
+
+{% for reserva in reservas %}
+<div class="card mb-3 p-3">
+  <strong>{{ reserva.campo.nome }}</strong><br>
+  {{ reserva.data }} – {{ reserva.hora_inicio }}<br>
+  {{ reserva.preco_total }}€
+
+  <div class="mt-2">
+    <a class="btn btn-danger btn-sm"
+       href="{% url 'campos:cancelar_reserva' reserva.id %}">
+      Cancelar Reserva
+    </a>
+  </div>
+</div>
+{% empty %}
+<p class="text-muted">Não tens reservas ativas.</p>
+{% endfor %}
+{% endblock %}
