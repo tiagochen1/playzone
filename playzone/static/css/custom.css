@@ -1,0 +1,93 @@
+/* PlayZone - Figma aligned */
+@import url("/static/css/main.css");
+
+/* =======================
+   AUTH (login / registo / reset)
+======================= */
+
+.auth-topbar{
+  position:fixed; top:0; left:0; right:0;
+  height:42px;
+  background:#6f6f6f;
+  color:#dcdcdc;
+  display:flex;
+  align-items:center;
+  padding-left:16px;
+  font-weight:700;
+  letter-spacing:1px;
+  z-index:50;
+}
+
+.auth-split{
+  display:flex;
+  min-height:100vh;
+  background:#fff;
+}
+
+.auth-left{
+  flex:1;
+  padding:80px 60px;
+  background:#fff;
+}
+
+.auth-right{
+  flex:1;
+  position:relative;
+  background:url("/static/images/1.jpg") center/cover no-repeat;
+}
+
+.auth-brand{
+  font-size:56px;
+  font-weight:400;
+  margin:0 0 40px 0;
+}
+
+.auth-title{
+  font-size:44px;
+  font-weight:800;
+  margin:0 0 24px 0;
+}
+
+.auth-input{
+  width:220px;
+  height:36px;
+  background:#e6e6e6 !important;
+  border:1px solid #c9c9c9 !important;
+  border-radius:2px !important;
+  padding:6px 10px !important;
+}
+
+.auth-actions{
+  display:flex;
+  gap:26px;
+  margin-top:20px;
+}
+
+.btn-auth-dark{
+  background:#3f3f3f !important;
+  color:#fff !important;
+  border:none !important;
+  padding:10px 22px !important;
+  font-size:18px;
+  border-radius:4px;
+}
+
+.btn-auth-light{
+  background:#cfcfcf !important;
+  color:#fff !important;
+  border:none !important;
+  padding:10px 22px !important;
+  font-size:18px;
+  border-radius:4px;
+}
+
+.auth-recover{
+  position:absolute;
+  right:24px;
+  bottom:24px;
+  background:rgba(80,80,80,.85);
+  color:#fff;
+  padding:10px 16px;
+  border-radius:999px;
+  font-weight:700;
+}

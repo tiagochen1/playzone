@@ -11,7 +11,7 @@ class Command(BaseCommand):
     help = "Compila SCSS para static/css/custom.css (Bootstrap 5 + overrides)."
 
     def handle(self, *args, **options):
-        static_dir = Path(settings.BASE_DIR) / "static"
+        static_dir = Path(settings.BASE_DIR) / "playzone" / "static"
         src = static_dir / "scss" / "custom.scss"
         dst = static_dir / "css" / "custom.css"
 

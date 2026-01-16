@@ -1,26 +1,36 @@
-{% extends "base.html" %}
+{% extends "base_user.html" %}
+{% block title %}Lista de Campos | PlayZone{% endblock %}
 
 {% block content %}
-<div class="content">
-    <h1>Lista de Campos</h1>
+  <h1>Lista de Campos</h1>
 
-    <div class="card-header">
-        <span>Campo</span>
-        <span>Desporto</span>
-        <span>Preço</span>
-        <span></span>
+  <div class="card-header">
+    <div class="card-row">
+      <div class="col">Campo</div>
+      <div class="col">Desporto</div>
+      <div class="col">Preço</div>
+      <div class="col action"></div>
     </div>
+  </div>
 
+  {% if campos %}
     {% for campo in campos %}
-    <div class="card">
-        <span>{{ campo.nome }}</span>
-        <span>{{ campo.desporto }}</span>
-        <span>{{ campo.preco }}€/hora</span>
-
-        <a href="{% url 'campos:reservar' campo.id %}" class="btn btn-green">
-            Reservar
-        </a>
-    </div>
+      <div class="card">
+        <div class="card-row">
+          <div class="col">{{ campo.nome }}</div>
+          <div class="col">{{ campo.desporto.nome }}</div>
+          <div class="col">{{ campo.preco_hora }}€/hora</div>
+          <div class="col action">
+            <a class="reserve-btn" href="{% url 'campos:reservar' campo.id %}">Reservar</a>
+          </div>
+        </div>
+      </div>
     {% endfor %}
-</div>
+  {% else %}
+    {# placeholders como no Figma #}
+    <div class="card"><div class="card-row">&nbsp;</div></div>
+    <div class="card"><div class="card-row">&nbsp;</div></div>
+    <div class="card"><div class="card-row">&nbsp;</div></div>
+    <div class="card"><div class="card-row">&nbsp;</div></div>
+  {% endif %}
 {% endblock %}

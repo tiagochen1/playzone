@@ -2,35 +2,35 @@
 {% block title %}Lista de Campos | PlayZone{% endblock %}
 
 {% block content %}
-<div class="page-title">Lista de Campos</div>
+  <h1>Lista de Campos</h1>
 
-<div class="table-like">
-  <div class="table-like-header">
-    <div>Campo</div>
-    <div>Desporto</div>
-    <div>Preço</div>
-    <div></div>
-  </div>
-
-  {% for campo in campos %}
-  <div class="table-like-row">
-    <div class="fw-bold">{{ campo.nome }}</div>
-    <div class="text-muted">
-      {% for d in campo.desportos.all %}
-        {{ d.nome }}{% if not forloop.last %}, {% endif %}
-      {% empty %}-{% endfor %}
-    </div>
-    <div class="fw-bold">{{ campo.preco_hora }}€/hora</div>
-    <div class="text-end">
-      {% if campo.estado == "DISPONIVEL" %}
-        <a class="btn btn-success px-4" href="{% url 'campos:reservar' campo.id %}">Reservar</a>
-      {% else %}
-        <span class="badge bg-secondary">{{ campo.get_estado_display }}</span>
-      {% endif %}
+  <div class="card-header">
+    <div class="card-row">
+      <div class="col">Campo</div>
+      <div class="col">Desporto</div>
+      <div class="col">Preço</div>
+      <div class="col action"></div>
     </div>
   </div>
-  {% empty %}
-    <div class="p-3 text-muted">Ainda não há campos.</div>
-  {% endfor %}
-</div>
+
+  {% if campos %}
+    {% for campo in campos %}
+      <div class="card">
+        <div class="card-row">
+          <div class="col">{{ campo.nome }}</div>
+          <div class="col">{{ campo.desporto.nome }}</div>
+          <div class="col">{{ campo.preco_hora }}€/hora</div>
+          <div class="col action">
+            <a class="reserve-btn" href="{% url 'campos:reservar' campo.id %}">Reservar</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    {# placeholders como no Figma #}
+    <div class="card"><div class="card-row">&nbsp;</div></div>
+    <div class="card"><div class="card-row">&nbsp;</div></div>
+    <div class="card"><div class="card-row">&nbsp;</div></div>
+    <div class="card"><div class="card-row">&nbsp;</div></div>
+  {% endif %}
 {% endblock %}

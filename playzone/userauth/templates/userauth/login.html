@@ -2,34 +2,31 @@
 {% block title %}Login | PlayZone{% endblock %}
 
 {% block content %}
+<div class="auth-topbar">LOGIN</div>
+
 <div class="auth-split">
   <div class="auth-left">
-    <div class="auth-card">
-      <div class="auth-brand">PLAYZONE</div>
-      <div class="auth-title">LOGIN</div>
+    <div class="auth-brand">PLAYZONE</div>
+    <div class="auth-title">Sign In to PLAYZONE</div>
 
-      <form method="post">
-        {% csrf_token %}
-        {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
+    <form method="post">
+      {% csrf_token %}
+      <div style="margin-bottom:16px;">
+        {{ form.username }}
+      </div>
+      <div style="margin-bottom:16px;">
+        {{ form.password }}
+      </div>
 
-        <div class="mb-3">
-          <label class="form-label">Email</label>
-          {{ form.username }}
-        </div>
+      <div class="auth-actions">
+        <button class="btn-auth-dark" type="submit">Login</button>
+        <a class="btn-auth-light" href="{% url 'userauth:register' %}">Registar</a>
+      </div>
+    </form>
 
-        <div class="mb-3">
-          <label class="form-label">Password</label>
-          {{ form.password }}
-        </div>
-
-        <button class="btn btn-primary w-100" type="submit">LOGIN</button>
-        <a class="btn btn-outline-primary w-100 mt-2" href="{% url 'userauth:register' %}">REGISTAR</a>
-
-        <div class="auth-link-row">
-          <a href="{% url 'userauth:password_reset' %}">RECUPERAR SENHA</a>
-        </div>
-      </form>
-    </div>
+    <a href="{% url 'userauth:password_reset' %}" style="display:inline-block;margin-top:16px;">
+      RECUPERAR SENHA
+    </a>
   </div>
 
   <div class="auth-right"></div>

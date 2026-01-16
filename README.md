@@ -32,5 +32,3 @@ docker compose exec web python manage.py migrate
 
 -Criar superuser
 docker compose exec web python manage.py createsuperuser
-
-

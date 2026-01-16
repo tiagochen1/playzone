@@ -7,6 +7,14 @@ from django.contrib.auth.forms import UserCreationForm
 
 from .forms import RegisterForm
 
+from django.contrib.auth.views import (
+    PasswordResetView,
+    PasswordResetDoneView,
+    PasswordResetConfirmView,
+    PasswordResetCompleteView,
+)
+from django.urls import reverse_lazy
+
 # Create your views here.
 
 class CustomLoginView(LoginView):
