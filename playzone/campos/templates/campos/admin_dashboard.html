@@ -5,6 +5,10 @@
 <div class="page-title-row" style="justify-content:space-between;">
   <div class="page-title">DashBoard</div>
   <div style="display:flex;gap:10px;flex-wrap:wrap;">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 8d22d75b0b2b9e1f2f141e08a16c6267bb5e96a9
     <a class="btn btn-outline-secondary" href="{% url 'campos:campos_list' %}">Página Inicial</a>
     <a class="btn btn-outline-primary" href="{% url 'campos:admin_campos_list' %}">Gerir Campos</a>
     <a class="btn btn-primary" href="{% url 'campos:admin_campo_create' %}">+ Adicionar Campo</a>
@@ -52,6 +56,31 @@
   </div>
 </div>
 
+<<<<<<< HEAD
+=======
+=======
+    <a class="btn btn-outline-primary" href="{% url 'campos:admin_campos_list' %}">Gerir Campos</a>
+    <a class="btn btn-primary" href="{% url 'campos:admin_campo_create' %}">+ Adicionar Campo</a>
+  </div>
+</div>
+
+<div class="kpi-list">
+  <div class="kpi-item">
+    <div>Reservas Hoje</div>
+    <div class="kpi-value">{{ kpi_reservas_hoje }}</div>
+  </div>
+  <div class="kpi-item">
+    <div>Campos Disponíveis</div>
+    <div class="kpi-value">{{ kpi_campos_disp }}</div>
+  </div>
+  <div class="kpi-item">
+    <div>Receita do Mês</div>
+    <div class="kpi-value">{{ kpi_receita_mes|floatformat:2 }}€</div>
+  </div>
+</div>
+
+>>>>>>> 9086c0ee7fb37aa367a609783da8f83ac173bb20
+>>>>>>> 8d22d75b0b2b9e1f2f141e08a16c6267bb5e96a9
 <div class="reservas-box">
   <div class="reservas-title">Reservas Recentes</div>
   <div class="table-like" style="max-width:1100px;">
