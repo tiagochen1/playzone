@@ -69,12 +69,15 @@ class CampoForm(forms.ModelForm):
                 attrs={"class": "input", "step": "0.01", "min": "0", "placeholder": "Preço/hora"}
             ),
             "estado": forms.Select(attrs={"class": "select"}),
+<<<<<<< HEAD
             "foto": forms.TextInput(
                 attrs={
                     "class": "input",
                     "placeholder": "images/campos/desportivo-de-futebol.avif",
                 }
             ),
+=======
+>>>>>>> 9086c0ee7fb37aa367a609783da8f83ac173bb20
         }
 
     def save(self, commit=True):

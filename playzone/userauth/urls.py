@@ -3,12 +3,18 @@ from django.urls import path
 from .views import (
     CustomLoginView,
     register_view,
+<<<<<<< HEAD
     profile_view,
     logout_view,
     UserPasswordResetView,
     UserPasswordResetDoneView,
     UserPasswordResetConfirmView,
     UserPasswordResetCompleteView,
+=======
+    password_reset_view,
+    profile_view,
+    logout_view,
+>>>>>>> 9086c0ee7fb37aa367a609783da8f83ac173bb20
 )
 
 app_name = "userauth"

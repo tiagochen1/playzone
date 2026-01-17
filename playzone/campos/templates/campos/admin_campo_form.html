@@ -6,7 +6,11 @@
   {% if modo == "criar" %}Adicionar Campo{% else %}Editar Campo{% endif %}
 </div>
 
+<<<<<<< HEAD
 <form method="post" enctype="multipart/form-data" class="form-stack">
+=======
+<form method="post" class="form-stack">
+>>>>>>> 9086c0ee7fb37aa367a609783da8f83ac173bb20
   {% csrf_token %}
 
   {% if form.non_field_errors %}
@@ -19,6 +23,7 @@
   {{ form.preco_hora }}
   {{ form.estado }}
 
+<<<<<<< HEAD
   <div style="margin-top:6px;">
     <div style="font-weight:700;margin-bottom:6px;">Imagem do campo</div>
     {{ form.foto_upload }}
@@ -26,6 +31,8 @@
     {{ form.foto }}
   </div>
 
+=======
+>>>>>>> 9086c0ee7fb37aa367a609783da8f83ac173bb20
   <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:8px;">
     <a class="btn btn-outline-secondary" href="{% url 'campos:admin_campos_list' %}">Voltar</a>
     <button class="btn btn-primary" type="submit">Guardar</button>

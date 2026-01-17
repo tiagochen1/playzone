@@ -86,6 +86,12 @@ body {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+<<<<<<< HEAD
+=======
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+>>>>>>> 9086c0ee7fb37aa367a609783da8f83ac173bb20
     padding-top: 20px;
     border-top: 1px solid #eee;
 }
@@ -116,6 +122,35 @@ body {
     text-decoration: underline;
 }
 
+<<<<<<< HEAD
+=======
+.user-profile-link{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    padding: 10px 10px;
+    border-radius: 12px;
+}
+
+.user-profile-link:hover{
+    background: #f1f2f4;
+}
+
+.logout-link{
+    margin-left: 52px;
+    font-size: 14px;
+    color: #222;
+    text-decoration: none;
+}
+
+.logout-link:hover{
+    text-decoration: underline;
+}
+
+>>>>>>> 9086c0ee7fb37aa367a609783da8f83ac173bb20
 .user-circle {
     width: 42px;
     height: 42px;
@@ -130,6 +165,10 @@ body {
 }
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9086c0ee7fb37aa367a609783da8f83ac173bb20
 
 .user-link {
     text-decoration: none;
@@ -161,6 +200,13 @@ body {
    TABELA / CARDS
 ======================= */
 .card-header {
+<<<<<<< HEAD
+=======
+    display: grid;
+    /* última coluna reservada para a ação (botão) como no Figma */
+    grid-template-columns: 2fr 1.3fr 1fr 1fr 160px;
+    align-items: center;
+>>>>>>> 9086c0ee7fb37aa367a609783da8f83ac173bb20
     padding: 16px 28px;
     min-height: 60px;
     font-weight: 600;
@@ -171,6 +217,13 @@ body {
 }
 
 .card {
+<<<<<<< HEAD
+=======
+    display: grid;
+    /* manter a grelha alinhada com o header */
+    grid-template-columns: 2fr 1.3fr 1fr 1fr 160px;
+    align-items: center;
+>>>>>>> 9086c0ee7fb37aa367a609783da8f83ac173bb20
     padding: 16px 28px;
     min-height: 60px;
     background: #ffffff;
@@ -179,6 +232,7 @@ body {
     margin-bottom: 18px;
 }
 
+<<<<<<< HEAD
 /*
   FIX: Em alguns browsers/ambientes, `display: contents` pode falhar e o grid não é aplicado,
   fazendo com que as colunas fiquem empilhadas (como nas tuas imagens).
@@ -216,6 +270,11 @@ body {
     }
 
     .reserva-table .col.action{ justify-self: start; }
+=======
+/* Mantém o HTML com .card-row/.col e aplica o grid do container (mais parecido ao Figma) */
+.card-row{ 
+    display: contents;
+>>>>>>> 9086c0ee7fb37aa367a609783da8f83ac173bb20
 }
 
 .col{
@@ -241,10 +300,54 @@ body {
     color: #1b5e20;
 }
 
+<<<<<<< HEAD
 .reserve-btn--disabled{
     border-color: #bdbdbd;
     background: #f2f2f2;
     color: #7a7a7a;
+=======
+.reserve-btn:hover{
+    background: rgba(46,125,50,0.28);
+}
+
+/* Mantém o HTML com .card-row/.col e aplica o grid do container (mais parecido ao Figma) */
+.card-row{ 
+    display: contents;
+}
+
+.col{
+    font-size: 15px;
+    color: #222;
+    padding-right: 12px;
+}
+
+.col.action{
+    justify-self: end;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 0;
+}
+
+.reserve-btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 18px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    border: 2px solid #2e7d32;
+    background: rgba(46,125,50,0.18);
+    color: #1b5e20;
+}
+
+.reserve-btn--disabled{
+    /* mais legível e próximo do Figma: estado "Indisponível" destacado */
+    border-color: #dc2626;
+    background: rgba(220,38,38,0.14);
+    color: #b91c1c;
+>>>>>>> 9086c0ee7fb37aa367a609783da8f83ac173bb20
     cursor: not-allowed;
 }
 
@@ -369,6 +472,7 @@ body {
 }
 
 /* =======================
+<<<<<<< HEAD
    RESERVAR (User)
 ======================= */
 .reserve-header{
@@ -455,6 +559,300 @@ body {
 
 @media (max-width: 920px){
     .reserve-grid{ grid-template-columns: 1fr; }
+}
+
+/* =======================
+=======
+>>>>>>> 9086c0ee7fb37aa367a609783da8f83ac173bb20
+   ADMIN CUSTOMS (tabela)
+======================= */
+.page-title{
+    font-size: 34px;
+    font-weight: 800;
+    margin: 0 0 18px 0;
+}
+
+.page-title-row{
+    display:flex;
+    align-items:center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.filters-row{
+    display: grid;
+    grid-template-columns: 1fr 190px;
+    gap: 22px;
+    align-items: center;
+    margin-bottom: 18px;
+    max-width: 1100px;
+}
+
+.search-box{
+    display:flex;
+    align-items:center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: 16px;
+    background: #f9fafb;
+    border: 1px solid #d6d6d6;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+}
+
+.search-box input{
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 16px;
+    width: 100%;
+}
+
+.filter-panel{
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: #f9fafb;
+    border: 1px solid #d6d6d6;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+}
+
+.filter-panel .select{
+    padding: 10px 12px;
+    border-radius: 12px;
+    box-shadow: none;
+}
+
+.table-like{
+    max-width: 1100px;
+}
+
+.table-like-header, .table-like-row{
+    display: grid;
+    grid-template-columns: 1.4fr 1.2fr 0.8fr 1fr 0.8fr;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 22px;
+    border-radius: 16px;
+}
+
+.table-like-header{
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    font-weight: 700;
+    margin-bottom: 16px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+}
+
+.table-like-row{
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 14px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+}
+
+.status{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    font-weight: 600;
+}
+
+.dot{
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #bdbdbd;
+}
+
+.dot.green{ background:#22c55e; }
+.dot.red{ background:#ef4444; }
+
+/* =======================
+   ADMIN DASHBOARD
+======================= */
+.kpi-list{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 1100px;
+    margin-bottom: 26px;
+}
+
+.kpi-item{
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+    padding: 22px 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 18px;
+}
+
+.reservas-box{
+    max-width: 1100px;
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+    padding: 22px 26px;
+}
+
+.reservas-title{
+    font-weight: 800;
+    margin: 0 0 14px 0;
+}
+
+<<<<<<< HEAD
+.dashboard-section{
+    max-width: 1100px;
+    margin-bottom: 26px;
+}
+
+.section-title{
+    font-weight: 800;
+    margin: 0 0 14px 0;
+}
+
+.sports-admin{ display: flex; flex-direction: column; gap: 16px; }
+
+.sports-form{ width: 100%; }
+
+.sports-form-row{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: end;
+}
+
+.sports-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag-pill{
+=======
+.simple-table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.simple-table th, .simple-table td{
+    text-align: left;
+    padding: 12px 10px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+}
+
+.simple-table th{ font-weight: 800; }
+
+.pill{
+>>>>>>> 9086c0ee7fb37aa367a609783da8f83ac173bb20
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 13px;
+<<<<<<< HEAD
+    border: 1px solid #d1d5db;
+    background: #f5f6f8;
+    color: #111827;
+}
+
+@media (max-width: 900px){
+    .sports-form-row{ grid-template-columns: 1fr; }
+=======
+}
+
+.pill-green{ background: rgba(34,197,94,0.18); color: #166534; }
+.pill-red{ background: rgba(239,68,68,0.18); color: #7f1d1d; }
+.pill-gray{ background: rgba(148,163,184,0.25); color: #334155; }
+.dot.red{ background:#ef4444; }
+.dot.gray{ background:#9ca3af; }
+
+/* responsivo */
+@media (max-width: 900px){
+    .filters-row{ grid-template-columns: 1fr; }
+    .table-like-header, .table-like-row{ grid-template-columns: 1fr; }
+}
+
+.btn-primary{
+    background: #1d3f8b;
+    color: #fff;
+}
+
+.btn-primary:hover{
+    background: #163372;
+}
+
+.btn-outline-primary{
+    border: 2px solid #1d3f8b;
+    color: #1d3f8b;
+    background: transparent;
+}
+
+.btn-outline-primary:hover{
+    background: rgba(29,63,139,0.08);
+}
+
+.btn-outline-secondary{
+    border: 2px solid #c9c9c9;
+    color: #333;
+    background: transparent;
+}
+
+.btn-outline-secondary:hover{
+    background: rgba(0,0,0,0.05);
+}
+
+.btn-danger{
+    background: #d32f2f;
+    color: #fff;
+}
+
+.btn-danger:hover{
+    background: #b71c1c;
+}
+
+/* =======================
+   FORMULÁRIOS
+======================= */
+.form-stack{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 980px;
+}
+
+.input, .select{
+    width: 100%;
+    padding: 16px 18px;
+    border: 1px solid #d6d6d6;
+    border-radius: 14px;
+    background: #f9fafb;
+    font-size: 16px;
+    outline: none;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.select{ background: #fff; }
+
+.input:focus, .select:focus{
+    border-color: #1d3f8b;
+    box-shadow: 0 0 0 3px rgba(29,63,139,0.15), 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.helper{
+    margin-top: 8px;
+    font-size: 13px;
+    color: #666;
 }
 
 /* =======================
@@ -599,50 +997,7 @@ body {
 .reservas-title{
     font-weight: 800;
     margin: 0 0 14px 0;
-}
-
-.dashboard-section{
-    max-width: 1100px;
-    margin-bottom: 26px;
-}
-
-.section-title{
-    font-weight: 800;
-    margin: 0 0 14px 0;
-}
-
-.sports-admin{ display: flex; flex-direction: column; gap: 16px; }
-
-.sports-form{ width: 100%; }
-
-.sports-form-row{
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 16px;
-    align-items: end;
-}
-
-.sports-list{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.tag-pill{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 6px 12px;
-    border-radius: 999px;
-    font-weight: 700;
-    font-size: 13px;
-    border: 1px solid #d1d5db;
-    background: #f5f6f8;
-    color: #111827;
-}
-
-@media (max-width: 900px){
-    .sports-form-row{ grid-template-columns: 1fr; }
+>>>>>>> 9086c0ee7fb37aa367a609783da8f83ac173bb20
 }
 
 .simple-table{
