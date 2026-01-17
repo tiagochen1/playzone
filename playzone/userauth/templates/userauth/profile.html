@@ -22,6 +22,10 @@
         </div>
 
         <div class="profile-actions">
+            {% if user.is_staff %}
+            <a class="btn btn-primary" href="{% url 'campos:admin_dashboard' %}">Ir para Admin Dashboard</a>
+            <a class="btn btn-outline-secondary" href="{% url 'campos:campos_list' %}">Página Inicial</a>
+            {% endif %}
             <form method="post" action="{% url 'userauth:logout' %}">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-dark">Logout</button>

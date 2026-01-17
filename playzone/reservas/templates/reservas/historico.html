@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content">
+
+    <h1>Histórico</h1>
+
+    <!-- Header -->
+    <div class="card-header">
+        <span>Campo</span>
+        <span>Desporto</span>
+        <span>Preço</span>
+        <span></span>
+    </div>
+
+    {% if reservas %}
+        {% for reserva in reservas %}
+        <div class="reserva-card">
+            <span>{{ reserva.campo.nome }}</span>
+
+            <span>
+                {{ reserva.campo.desporto }}
+            </span>
+
+            <span>
+                {{ reserva.campo.preco }}€/hora
+            </span>
+
+            <a
+                href="{% url 'campos:reservar' reserva.campo.id %}"
+                class="btn btn-green"
+            >
+                Voltar a Reservar
+            </a>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-muted">Ainda não tens reservas no histórico.</p>
+    {% endif %}
+
+</div>
+{% endblock %}

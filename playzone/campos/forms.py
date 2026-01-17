@@ -1,6 +1,11 @@
 from __future__ import annotations
 
+import os
+import uuid
+from pathlib import Path
+
 from django import forms
+from django.conf import settings
 
 from .models import Campo, Reserva
 from .services import validar_campo_disponivel, validar_conflito_reservas
@@ -12,9 +17,10 @@ class ReservaForm(forms.ModelForm):
         fields = ["data", "hora_inicio", "duracao_horas"]
 
         widgets = {
-            "data": forms.DateInput(attrs={"class": "form-control", "type": "date"}),
-            "hora_inicio": forms.TimeInput(attrs={"class": "form-control", "type": "time"}),
-            "duracao_horas": forms.NumberInput(attrs={"class": "form-control", "min": 1, "max": 8}),
+            # Alinhado com o design (Figma): usamos as classes do nosso CSS (main.css)
+            "data": forms.DateInput(attrs={"class": "input", "type": "date"}),
+            "hora_inicio": forms.TimeInput(attrs={"class": "input", "type": "time"}),
+            "duracao_horas": forms.NumberInput(attrs={"class": "input", "min": 1, "max": 8}),
         }
 
     def __init__(self, *args, campo=None, **kwargs):
@@ -40,13 +46,82 @@ class ReservaForm(forms.ModelForm):
 
 
 class CampoForm(forms.ModelForm):
+    # Upload opcional (guarda dentro de playzone/static/images/campos/ e coloca o caminho em Campo.foto)
+    # Usamos FileField (e nao ImageField) para evitar dependencia do Pillow (PIL).
+    # A validacao e feita por extensao e content-type.
+    foto_upload = forms.FileField(
+        required=False,
+        label="Imagem do campo",
+        widget=forms.ClearableFileInput(
+            attrs={
+                "class": "input",
+                "accept": "image/*",
+            }
+        ),
+    )
+
+    def clean_foto_upload(self):
+        upload = self.files.get("foto_upload")
+        if not upload:
+            return upload
+
+        # Validacao simples sem PIL
+        allowed_ext = {".jpg", ".jpeg", ".png", ".webp", ".avif", ".gif"}
+        ext = os.path.splitext(upload.name)[1].lower()
+        if ext not in allowed_ext:
+            raise forms.ValidationError(
+                "Formato de imagem inválido. Usa jpg, png, webp, avif ou gif."
+            )
+
+        ctype = (getattr(upload, "content_type", "") or "").lower()
+        if ctype and not ctype.startswith("image/"):
+            raise forms.ValidationError("O ficheiro enviado não é uma imagem.")
+
+        # Limite razoavel (5MB)
+        if upload.size and upload.size > 5 * 1024 * 1024:
+            raise forms.ValidationError("Imagem demasiado grande (máx. 5MB).")
+
+        return upload
+
     class Meta:
         model = Campo
-        fields = ["nome", "desportos", "preco_hora", "estado"]
+        fields = ["nome", "desportos", "preco_hora", "estado", "foto"]
 
         widgets = {
-            "nome": forms.TextInput(attrs={"class": "form-control"}),
-            "desportos": forms.SelectMultiple(attrs={"class": "form-select", "size": 6}),
-            "preco_hora": forms.NumberInput(attrs={"class": "form-control", "step": "0.01", "min": "0"}),
-            "estado": forms.Select(attrs={"class": "form-select"}),
+            "nome": forms.TextInput(attrs={"class": "input", "placeholder": "Nome do Campo"}),
+            "desportos": forms.SelectMultiple(attrs={"class": "select", "size": 3}),
+            "preco_hora": forms.NumberInput(
+                attrs={"class": "input", "step": "0.01", "min": "0", "placeholder": "Preço/hora"}
+            ),
+            "estado": forms.Select(attrs={"class": "select"}),
+            "foto": forms.TextInput(
+                attrs={
+                    "class": "input",
+                    "placeholder": "images/campos/desportivo-de-futebol.avif",
+                }
+            ),
         }
+
+    def save(self, commit=True):
+        instance: Campo = super().save(commit=False)
+
+        upload = self.files.get("foto_upload")
+        if upload:
+            # Guardar dentro do static do projeto para ser servido como {%% static campo.foto %%}
+            static_dir = Path(settings.BASE_DIR) / "playzone" / "static" / "images" / "campos"
+            static_dir.mkdir(parents=True, exist_ok=True)
+
+            ext = os.path.splitext(upload.name)[1].lower() or ".jpg"
+            filename = f"campo_{uuid.uuid4().hex}{ext}"
+            dest = static_dir / filename
+
+            with open(dest, "wb") as f:
+                for chunk in upload.chunks():
+                    f.write(chunk)
+
+            instance.foto = f"images/campos/{filename}"
+
+        if commit:
+            instance.save()
+            self.save_m2m()
+        return instance

@@ -1,38 +1,53 @@
 {% extends "base_user.html" %}
+{% load static %}
 {% block title %}Reservar | PlayZone{% endblock %}
 
 {% block content %}
 <div class="page-title">Reservar</div>
 
-<div class="card p-4">
-  <div class="d-flex justify-content-between align-items-start mb-3">
-    <div>
-      <div class="fs-4 fw-bold">{{ campo.nome }}</div>
-      <div class="text-muted">Preço: {{ campo.preco_hora }}€/hora</div>
+<div class="card">
+  <div class="reserve-header">
+    <div class="reserve-left">
+      <img class="reserve-photo" src="{% static campo.foto %}" alt="{{ campo.nome }}">
+
+      <div>
+        <div class="reserve-title">{{ campo.nome }}</div>
+        <div class="reserve-subtitle">Preço: {{ campo.preco_hora }}€/hora</div>
+      </div>
     </div>
     <a class="btn btn-outline-secondary" href="{% url 'campos:campos_list' %}">Voltar</a>
   </div>
 
-  <form method="post">
+  <form method="post" class="reserve-form">
     {% csrf_token %}
-    {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
 
-    <div class="row g-3">
-      <div class="col-md-4">
-        <label class="form-label">Data</label>
+    {% if form.non_field_errors %}
+      <div class="error-box">{{ form.non_field_errors }}</div>
+    {% endif %}
+
+    <div class="reserve-grid">
+      <div class="field">
+        <label class="field-label" for="{{ form.data.id_for_label }}">Data</label>
         {{ form.data }}
+        {% if form.data.errors %}<div class="field-errors">{{ form.data.errors }}</div>{% endif %}
       </div>
-      <div class="col-md-4">
-        <label class="form-label">Hora</label>
+
+      <div class="field">
+        <label class="field-label" for="{{ form.hora_inicio.id_for_label }}">Hora</label>
         {{ form.hora_inicio }}
+        {% if form.hora_inicio.errors %}<div class="field-errors">{{ form.hora_inicio.errors }}</div>{% endif %}
       </div>
-      <div class="col-md-4">
-        <label class="form-label">Duração (h)</label>
+
+      <div class="field">
+        <label class="field-label" for="{{ form.duracao_horas.id_for_label }}">Duração (h)</label>
         {{ form.duracao_horas }}
+        {% if form.duracao_horas.errors %}<div class="field-errors">{{ form.duracao_horas.errors }}</div>{% endif %}
       </div>
     </div>
 
-    <button class="btn btn-success mt-3 px-4">Reservar</button>
+    <div class="reserve-actions">
+      <button class="btn btn-primary" type="submit">Reservar</button>
+    </div>
   </form>
 </div>
 {% endblock %}

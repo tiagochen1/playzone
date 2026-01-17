@@ -7,7 +7,8 @@
   <div class="card-header">
     <div class="card-row">
       <div class="col">Campo</div>
-      <div class="col">Desporto</div>
+      <div class="col">Desportos</div>
+      <div class="col">Estado</div>
       <div class="col">Preço</div>
       <div class="col action"></div>
     </div>
@@ -18,10 +19,23 @@
       <div class="card">
         <div class="card-row">
           <div class="col">{{ campo.nome }}</div>
-          <div class="col">{{ campo.desporto.nome }}</div>
+          <div class="col">
+            {% for d in campo.desportos.all %}
+              {{ d.nome }}{% if not forloop.last %}, {% endif %}
+            {% empty %}
+              —
+            {% endfor %}
+          </div>
+          <div class="col">
+            <span class="status-pill status-{{ campo.estado|lower }}">{{ campo.get_estado_display }}</span>
+          </div>
           <div class="col">{{ campo.preco_hora }}€/hora</div>
           <div class="col action">
-            <a class="reserve-btn" href="{% url 'campos:reservar' campo.id %}">Reservar</a>
+            {% if campo.estado == 'DISPONIVEL' %}
+              <a class="reserve-btn" href="{% url 'campos:reservar' campo.id %}">Reservar</a>
+            {% else %}
+              <span class="reserve-btn reserve-btn--disabled">Indisponível</span>
+            {% endif %}
           </div>
         </div>
       </div>
