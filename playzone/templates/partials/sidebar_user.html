@@ -13,15 +13,22 @@
         <li>
           <a href="{% url 'campos:historico' %}">Histórico</a>
         </li>
+        {% if request.user.is_staff %}
+        <li>
+          <a href="{% url 'campos:admin_dashboard' %}">Admin Dashboard</a>
+        </li>
+        {% endif %}
       </ul>
     </nav>
   </div>
 
   <div class="user-area">
-    <div class="user-circle">{{ request.user.username|first|upper }}</div>
-    <div>
-      <div>Hello, {{ request.user.username }}!</div>
-      <a href="{% url 'userauth:logout' %}">Sair</a>
-    </div>
+    <a class="user-profile-link" href="{% url 'userauth:profile' %}" title="Ver perfil">
+      <div class="user-circle">{{ request.user.username|first|upper }}</div>
+      <div>
+        <div>Hello, {{ request.user.username }}!</div>
+      </div>
+    </a>
+    <a class="logout-link" href="{% url 'userauth:logout' %}">Sair</a>
   </div>
 </aside>

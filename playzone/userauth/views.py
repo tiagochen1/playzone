@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView
-from django.contrib.auth import login
+from django.contrib.auth import login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
@@ -62,3 +62,9 @@ def password_reset_view(request):
 @login_required #impede os utilizadores que não tem conta acedam esta pagina
 def profile_view(request):
     return render(request, "userauth/profile.html")
+
+
+def logout_view(request):
+    """Simple logout that accepts GET (avoids HTTP 405 on /logout/)."""
+    auth_logout(request)
+    return redirect("campos:campos_list")

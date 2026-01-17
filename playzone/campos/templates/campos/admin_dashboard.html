@@ -2,60 +2,55 @@
 {% block title %}Admin Dashboard | PlayZone{% endblock %}
 
 {% block content %}
-<div class="page-title">DashBoard</div>
-
-<div class="row g-3 mb-4">
-  <div class="col-md-4">
-    <div class="card p-3">
-      <div class="text-muted">Reservas Hoje</div>
-      <div class="fs-2 fw-bold">{{ kpi_reservas_hoje }}</div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card p-3">
-      <div class="text-muted">Campos Disponíveis</div>
-      <div class="fs-2 fw-bold">{{ kpi_campos_disp }}</div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card p-3">
-      <div class="text-muted">Receita do Mês</div>
-      <div class="fs-2 fw-bold">{{ kpi_receita_mes|floatformat:2 }}€</div>
-    </div>
+<div class="page-title-row" style="justify-content:space-between;">
+  <div class="page-title">DashBoard</div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;">
+    <a class="btn btn-outline-primary" href="{% url 'campos:admin_campos_list' %}">Gerir Campos</a>
+    <a class="btn btn-primary" href="{% url 'campos:admin_campo_create' %}">+ Adicionar Campo</a>
   </div>
 </div>
 
-<div class="card p-3">
-  <h5 class="fw-bold mb-3">Reservas Recentes</h5>
-  <div class="table-responsive">
-    <table class="table align-middle">
-      <thead>
-        <tr>
-          <th>Nome da Marcação</th>
-          <th>Estado</th>
-          <th>Campo</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for r in reservas %}
-        <tr>
-          <td>{{ r.user.username }} ({{ r.data }} {{ r.hora_inicio }})</td>
-          <td>
-            {% if r.estado == "RESERVADA" %}
-              <span class="badge bg-success">Reservado</span>
-            {% elif r.estado == "CANCELADA" %}
-              <span class="badge bg-danger">Cancelado</span>
-            {% else %}
-              <span class="badge bg-secondary">{{ r.get_estado_display }}</span>
-            {% endif %}
-          </td>
-          <td>{{ r.campo.nome }}</td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="3" class="text-muted">Sem reservas.</td></tr>
-        {% endfor %}
-      </tbody>
-    </table>
+<div class="kpi-list">
+  <div class="kpi-item">
+    <div>Reservas Hoje</div>
+    <div class="kpi-value">{{ kpi_reservas_hoje }}</div>
+  </div>
+  <div class="kpi-item">
+    <div>Campos Disponíveis</div>
+    <div class="kpi-value">{{ kpi_campos_disp }}</div>
+  </div>
+  <div class="kpi-item">
+    <div>Receita do Mês</div>
+    <div class="kpi-value">{{ kpi_receita_mes|floatformat:2 }}€</div>
+  </div>
+</div>
+
+<div class="reservas-box">
+  <div class="reservas-title">Reservas Recentes</div>
+  <div class="table-like" style="max-width:1100px;">
+    <div class="table-like-header" style="grid-template-columns: 2fr 1fr 1fr;">
+      <div>Nome da Marcação</div>
+      <div>Estado</div>
+      <div>Campo</div>
+    </div>
+
+    {% for r in reservas %}
+    <div class="table-like-row" style="grid-template-columns: 2fr 1fr 1fr;">
+      <div>{{ r.user.username }} ({{ r.data }} {{ r.hora_inicio }})</div>
+      <div>
+        {% if r.estado == "RESERVADA" %}
+          <span class="status"><span class="dot green"></span> Reservado</span>
+        {% elif r.estado == "CANCELADA" %}
+          <span class="status"><span class="dot red"></span> Cancelado</span>
+        {% else %}
+          <span class="status"><span class="dot"></span> {{ r.get_estado_display }}</span>
+        {% endif %}
+      </div>
+      <div>{{ r.campo.nome }}</div>
+    </div>
+    {% empty %}
+      <div style="padding:16px 22px;color:#666;">Sem reservas.</div>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}
