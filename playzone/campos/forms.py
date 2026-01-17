@@ -45,8 +45,10 @@ class CampoForm(forms.ModelForm):
         fields = ["nome", "desportos", "preco_hora", "estado"]
 
         widgets = {
-            "nome": forms.TextInput(attrs={"class": "form-control"}),
-            "desportos": forms.SelectMultiple(attrs={"class": "form-select", "size": 6}),
-            "preco_hora": forms.NumberInput(attrs={"class": "form-control", "step": "0.01", "min": "0"}),
-            "estado": forms.Select(attrs={"class": "form-select"}),
+            "nome": forms.TextInput(attrs={"class": "input", "placeholder": "Nome do Campo"}),
+            "desportos": forms.SelectMultiple(attrs={"class": "select", "size": 3}),
+            "preco_hora": forms.NumberInput(
+                attrs={"class": "input", "step": "0.01", "min": "0", "placeholder": "Preço/hora"}
+            ),
+            "estado": forms.Select(attrs={"class": "select"}),
         }

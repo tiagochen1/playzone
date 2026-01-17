@@ -20,7 +20,16 @@ urlpatterns = [
 
     # ADMIN CUSTOM
     path("admin-dashboard/", admin_views.admin_dashboard, name="admin_dashboard"),
-    path("admin/campos/", admin_views.admin_campos_list, name="admin_campos_list"),
-    path("admin/campos/novo/", admin_views.admin_campo_create, name="admin_campo_create"),
-    path("admin/campos/<int:campo_id>/editar/", admin_views.admin_campo_edit, name="admin_campo_edit"),
+    # NOTE: we avoid the "/admin/" prefix because it conflicts with Django Admin.
+    path("admin-custom/campos/", admin_views.admin_campos_list, name="admin_campos_list"),
+    path(
+        "admin-custom/campos/novo/",
+        admin_views.admin_campo_create,
+        name="admin_campo_create",
+    ),
+    path(
+        "admin-custom/campos/<int:campo_id>/editar/",
+        admin_views.admin_campo_edit,
+        name="admin_campo_edit",
+    ),
 ]

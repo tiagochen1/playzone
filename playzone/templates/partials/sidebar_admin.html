@@ -10,15 +10,20 @@
         <li>
           <a href="{% url 'campos:admin_campos_list' %}">Customs</a>
         </li>
+        <li>
+          <a href="/admin/">Django Admin</a>
+        </li>
       </ul>
     </nav>
   </div>
 
   <div class="user-area">
-    <div class="user-circle">{{ request.user.username|first|upper }}</div>
-    <div>
-      <div>Hello, Admin!</div>
-      <a href="{% url 'userauth:logout' %}">Sair</a>
-    </div>
+    <a class="user-profile-link" href="{% url 'userauth:profile' %}" title="Ver perfil">
+      <div class="user-circle">{{ request.user.username|first|upper }}</div>
+      <div>
+        <div>Hello, {{ request.user.username }}!</div>
+      </div>
+    </a>
+    <a class="logout-link" href="{% url 'userauth:logout' %}">Sair</a>
   </div>
 </aside>
