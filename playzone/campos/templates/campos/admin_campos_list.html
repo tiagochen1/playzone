@@ -2,69 +2,71 @@
 {% block title %}Gestão de Campos | PlayZone{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-3">
-  <div class="page-title mb-0">Gestão de Campos</div>
+<div class="page-title-row">
+  <div class="page-title">Gestão de Campos</div>
   <a class="btn btn-primary" href="{% url 'campos:admin_campo_create' %}">+ ADICIONAR CAMPO</a>
 </div>
 
-<form class="row g-2 mb-3" method="get">
-  <div class="col-md-5">
-    <input class="form-control" name="q" value="{{ q }}" placeholder="Pesquisar Campo">
-  </div>
-  <div class="col-md-3">
-    <select class="form-select" name="estado">
-      <option value="">Estado (todos)</option>
-      {% for value,label in estados %}
-        <option value="{{ value }}" {% if estado == value %}selected{% endif %}>{{ label }}</option>
-      {% endfor %}
-    </select>
-  </div>
-  <div class="col-md-3">
-    <select class="form-select" name="desporto">
-      <option value="">Desporto (todos)</option>
-      {% for d in desportos %}
-        <option value="{{ d.id }}" {% if desporto_id|slugify == d.id|slugify %}selected{% endif %}>{{ d.nome }}</option>
-      {% endfor %}
-    </select>
-  </div>
-  <div class="col-md-1 d-grid">
-    <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
+<form method="get">
+  <div class="filters-row">
+    <div class="search-box">
+      <span aria-hidden="true">🔍</span>
+      <input name="q" value="{{ q }}" placeholder="Pesquisar Campo" />
+    </div>
+
+    <div class="filter-panel">
+      <select class="select" name="estado">
+        <option value="">Estado (todos)</option>
+        {% for value,label in estados %}
+          <option value="{{ value }}" {% if estado == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+
+      <select class="select" name="desporto">
+        <option value="">Desporto (todos)</option>
+        {% for d in desportos %}
+          <option value="{{ d.id }}" {% if desporto_id|slugify == d.id|slugify %}selected{% endif %}>{{ d.nome }}</option>
+        {% endfor %}
+      </select>
+
+      <button class="btn btn-outline-secondary" type="submit">Filtro</button>
+    </div>
   </div>
 </form>
 
-<div class="table-like table-like-5">
+<div class="table-like">
   <div class="table-like-header">
     <div>Campo</div>
     <div>Tipo de Desporto</div>
     <div>Preço/hora</div>
     <div>Estado</div>
-    <div class="text-end">Ações</div>
+    <div style="text-align:right;">Ações</div>
   </div>
 
   {% for c in campos %}
   <div class="table-like-row">
-    <div class="fw-bold">{{ c.nome }}</div>
-    <div class="text-muted">
+    <div style="font-weight:700;">{{ c.nome }}</div>
+    <div style="color:#666;">
       {% for d in c.desportos.all %}
         {{ d.nome }}{% if not forloop.last %}, {% endif %}
       {% empty %}-{% endfor %}
     </div>
-    <div class="fw-bold">{{ c.preco_hora }}€</div>
-    <div>
+    <div style="font-weight:700;">{{ c.preco_hora }}€</div>
+    <div class="status">
       {% if c.estado == "DISPONIVEL" %}
-        <span class="badge bg-success">Disponível</span>
+        <span class="dot green"></span> Disponível
       {% elif c.estado == "MANUTENCAO" %}
-        <span class="badge bg-danger">Em Manutenção</span>
+        <span class="dot red"></span> Em Manutenção
       {% else %}
-        <span class="badge bg-secondary">Inativo</span>
+        <span class="dot"></span> Inativo
       {% endif %}
     </div>
-    <div class="text-end">
-      <a class="btn btn-outline-primary" href="{% url 'campos:admin_campo_edit' c.id %}">Editar</a>
+    <div style="text-align:right;">
+      <a class="btn btn-outline-primary" href="{% url 'campos:admin_campo_edit' c.id %}">✎ Editar</a>
     </div>
   </div>
   {% empty %}
-    <div class="p-3 text-muted">Sem campos.</div>
+    <div style="padding:16px 22px;color:#666;">Sem campos.</div>
   {% endfor %}
 </div>
 {% endblock %}

@@ -1,34 +1,58 @@
-{% extends "base_public.html" %}
-{% block title %}Login | PlayZone{% endblock %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | PlayZone</title>
 
-{% block content %}
-<div class="auth-topbar">LOGIN</div>
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+</head>
+<body>
 
-<div class="auth-split">
-  <div class="auth-left">
-    <div class="auth-brand">PLAYZONE</div>
-    <div class="auth-title">Sign In to PLAYZONE</div>
+<div class="login-layout">
 
-    <form method="post">
-      {% csrf_token %}
-      <div style="margin-bottom:16px;">
-        {{ form.username }}
-      </div>
-      <div style="margin-bottom:16px;">
-        {{ form.password }}
-      </div>
+    <!-- LADO ESQUERDO -->
+    <div class="login-left">
 
-      <div class="auth-actions">
-        <button class="btn-auth-dark" type="submit">Login</button>
-        <a class="btn-auth-light" href="{% url 'userauth:register' %}">Registar</a>
-      </div>
-    </form>
+        <h2 class="login-brand">PLAYZONE</h2>
+        <h1 class="login-title">Sign In to PLAYZONE</h1>
 
-    <a href="{% url 'userauth:password_reset' %}" style="display:inline-block;margin-top:16px;">
-      RECUPERAR SENHA
-    </a>
-  </div>
+        <form method="post" class="login-form">
+            {% csrf_token %}
 
-  <div class="auth-right"></div>
+            {{ form.non_field_errors }}
+
+            <input type="text"
+                   name="username"
+                   placeholder="Email"
+                   required>
+
+            <input type="password"
+                   name="password"
+                   placeholder="Password"
+                   required>
+
+            <div class="login-actions">
+                <button type="submit" class="btn btn-dark">
+                    Login
+                </button>
+
+                <a href="{% url 'userauth:register' %}" class="btn btn-light">
+                    Registar
+                </a>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- LADO DIREITO -->
+    <div class="login-right">
+        <a href="{% url 'userauth:password_reset' %}" class="recover-btn">
+            RECUPERAR SENHA
+        </a>
+    </div>
+
 </div>
-{% endblock %}
+
+</body>
+</html>

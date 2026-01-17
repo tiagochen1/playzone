@@ -1,27 +1,33 @@
-<aside class="sidebar">
-  <div>
-    <h2>PLAYZONE</h2>
+    <aside class="sidebar">
+        <div>
+            <h2>PLAYZONE</h2>
 
-    <nav>
-      <ul>
-        <li>
-          <a href="{% url 'campos:campos_list' %}">Lista de Campos</a>
-        </li>
-        <li>
-          <a href="{% url 'campos:minhas_reservas' %}">Minhas Reservas</a>
-        </li>
-        <li>
-          <a href="{% url 'campos:historico' %}">Histórico</a>
-        </li>
-      </ul>
-    </nav>
-  </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="{% url 'campos:campos_list' %}">📋 Lista de Campos</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'campos:minhas_reservas' %}">🔖 Minhas Reservas</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'campos:historico' %}">📅 Histórico</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
 
-  <div class="user-area">
-    <div class="user-circle">{{ request.user.username|first|upper }}</div>
-    <div>
-      <div>Hello, {{ request.user.username }}!</div>
-      <a href="{% url 'userauth:logout' %}">Sair</a>
-    </div>
-  </div>
-</aside>
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'userauth:profile' %}" class="user-area user-link">
+                <div class="user-circle">
+                    {{ request.user.username|first|upper }}
+                </div>
+                <span>Hello, {{ request.user.username }}!</span>
+            </a>
+        {% else %}
+            <a href="{% url 'userauth:login' %}" class="user-area user-link">
+                <div class="user-circle">U</div>
+                <span>Hello, User!</span>
+            </a>
+        {% endif %}
+    </aside>

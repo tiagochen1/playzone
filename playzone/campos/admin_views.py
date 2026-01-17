@@ -19,6 +19,20 @@ def admin_required(view_func):
 def admin_dashboard(request):
     ensure_admin_group_exists()
 
+    # Criar desporto diretamente no dashboard
+    if request.method == "POST":
+        nome = (request.POST.get("desporto_nome") or "").strip()
+        if not nome:
+            messages.error(request, "Indica o nome do desporto.")
+            return redirect("campos:admin_dashboard")
+        # evitar duplicados (case-insensitive)
+        if Desporto.objects.filter(nome__iexact=nome).exists():
+            messages.error(request, "Esse desporto já existe.")
+            return redirect("campos:admin_dashboard")
+        Desporto.objects.create(nome=nome)
+        messages.success(request, "Desporto adicionado com sucesso.")
+        return redirect("campos:admin_dashboard")
+
     kpi_reservas_hoje = reservas_hoje()
     disp, total = campos_disponiveis_ratio()
     kpi_campos_disp = f"{disp}/{total}"
@@ -30,6 +44,8 @@ def admin_dashboard(request):
         .order_by("-data", "-hora_inicio")[:12]
     )
 
+    desportos = Desporto.objects.all().order_by("nome")
+
     return render(
         request,
         "campos/admin_dashboard.html",
@@ -38,6 +54,7 @@ def admin_dashboard(request):
             "kpi_campos_disp": kpi_campos_disp,
             "kpi_receita_mes": kpi_receita_mes,
             "reservas": ultimas,
+            "desportos": desportos,
         },
     )
 
@@ -81,7 +98,7 @@ def admin_campo_create(request):
     ensure_admin_group_exists()
 
     if request.method == "POST":
-        form = CampoForm(request.POST)
+        form = CampoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, "Campo criado com sucesso.")
@@ -102,7 +119,7 @@ def admin_campo_edit(request, campo_id: int):
     campo = get_object_or_404(Campo, pk=campo_id)
 
     if request.method == "POST":
-        form = CampoForm(request.POST, instance=campo)
+        form = CampoForm(request.POST, request.FILES, instance=campo)
         if form.is_valid():
             form.save()
             messages.success(request, "Campo atualizado com sucesso.")

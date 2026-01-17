@@ -2,20 +2,39 @@
 {% block title %}Minhas Reservas | PlayZone{% endblock %}
 
 {% block content %}
-<div class="page-title">Minhas Reservas</div>
+  <div class="page-title">Minhas Reservas</div>
 
-{% for r in reservas %}
-  <div class="card p-3 mb-3">
-    <div class="d-flex justify-content-between align-items-center">
-      <div>
-        <div class="fw-bold fs-5">{{ r.campo.nome }}</div>
-        <div class="text-muted">{{ r.data }} — {{ r.hora_inicio }} ({{ r.duracao_horas }}h)</div>
-        <div class="fw-bold mt-1">{{ r.preco_total }}€</div>
+  <div class="reserva-table">
+    <div class="card-header">
+      <div class="card-row">
+        <div class="col">Campo</div>
+        <div class="col">Data / Hora</div>
+        <div class="col">Duração</div>
+        <div class="col">Preço</div>
+        <div class="col action"></div>
       </div>
-      <a class="btn btn-danger" href="{% url 'campos:cancelar_reserva' r.id %}">Cancelar Reserva</a>
     </div>
+
+    {% if reservas %}
+      {% for r in reservas %}
+        <div class="card">
+          <div class="card-row">
+            <div class="col">{{ r.campo.nome }}</div>
+            <div class="col">{{ r.data }} — {{ r.hora_inicio }}</div>
+            <div class="col">{{ r.duracao_horas }}h</div>
+            <div class="col">{{ r.preco_total }}€</div>
+            <div class="col action">
+              <a class="btn btn-danger" href="{% url 'campos:cancelar_reserva' r.id %}">Cancelar Reserva</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="card">
+        <div class="card-row">
+          <div class="col" style="grid-column: 1 / -1; color:#666;">Não tens reservas ativas.</div>
+        </div>
+      </div>
+    {% endif %}
   </div>
-{% empty %}
-  <div class="text-muted">Não tens reservas ativas.</div>
-{% endfor %}
 {% endblock %}

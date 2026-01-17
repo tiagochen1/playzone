@@ -31,6 +31,13 @@ class Campo(models.Model):
         default=Estado.DISPONIVEL,
     )
     desportos = models.ManyToManyField(Desporto, related_name="campos")
+    # Caminho (relativo a /static/) para a imagem do campo.
+    # Usamos CharField (em vez de ImageField) para evitar dependência do Pillow.
+    foto = models.CharField(
+        max_length=255,
+        blank=True,
+        default="images/campos/desportivo-de-futebol.avif",
+    )
     criado_em = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -76,8 +83,14 @@ class Reserva(models.Model):
         return f"{self.campo} - {self.data} {self.hora_inicio}"
 
     #REGRA DE NEGÓCIO 1: não permitir datas no passado
+        # REGRA DE NEGÓCIO 1: não permitir datas no passado
     def clean(self):
         dt = timezone.datetime.combine(self.data, self.hora_inicio)
+
+        # garantir timezone-aware (USE_TZ=True)
+        if timezone.is_naive(dt):
+            dt = timezone.make_aware(dt, timezone.get_current_timezone())
+
         if dt < timezone.now():
             raise ValidationError("Não é possível reservar no passado.")
 

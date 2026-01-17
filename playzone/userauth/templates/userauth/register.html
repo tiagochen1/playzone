@@ -1,46 +1,64 @@
-{% extends "base_public.html" %}
-{% block title %}Registo | PlayZone{% endblock %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Registo | PlayZone</title>
 
-{% block content %}
-<div class="auth-topbar">REGISTO</div>
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+</head>
+<body>
 
-<div class="auth-split">
-  <div class="auth-left">
-    <div class="auth-brand">PLAYZONE</div>
-    <div class="auth-title">Registar no PLAYZONE</div>
+<div class="login-layout">
 
-    <form method="post">
-      {% csrf_token %}
+    <!-- LADO ESQUERDO -->
+    <div class="login-left">
 
-      {% if form.non_field_errors %}
-        <div style="margin-bottom:12px;">
-          {{ form.non_field_errors }}
-        </div>
-      {% endif %}
+        <h2 class="login-brand">PLAYZONE</h2>
+        <h1 class="login-title">Create your account</h1>
 
-      {# Render dos campos do form (mantém a mesma simplicidade do Figma) #}
-      {% for field in form %}
-        <div style="margin-bottom:16px;">
-          {{ field }}
-          {% if field.errors %}
-            <div style="margin-top:6px;">
-              {{ field.errors }}
+        <form method="post" class="login-form">
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+
+            <input type="text"
+                   name="username"
+                   placeholder="Username"
+                   required>
+
+            <input type="email"
+                   name="email"
+                   placeholder="Email"
+                   required>
+
+            <input type="password"
+                   name="password1"
+                   placeholder="Password"
+                   required>
+
+            <input type="password"
+                   name="password2"
+                   placeholder="Confirm Password"
+                   required>
+
+            <div class="login-actions">
+                <button type="submit" class="btn btn-dark">
+                    Registar
+                </button>
             </div>
-          {% endif %}
-        </div>
-      {% endfor %}
+        </form>
 
-      <div class="auth-actions">
-        <button class="btn-auth-dark" type="submit">Registar</button>
-        <a class="btn-auth-light" href="{% url 'userauth:login' %}">Login</a>
-      </div>
-    </form>
+    </div>
 
-    <a href="{% url 'userauth:password_reset' %}" style="display:inline-block;margin-top:16px;">
-      RECUPERAR SENHA
-    </a>
-  </div>
+    <!-- LADO DIREITO -->
+    <div class="login-right">
+        <a href="{% url 'userauth:login' %}" class="recover-btn">
+            JÁ TENHO CONTA
+        </a>
+    </div>
 
-  <div class="auth-right"></div>
 </div>
-{% endblock %}
+
+</body>
+</html>
