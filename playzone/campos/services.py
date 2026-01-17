@@ -40,7 +40,17 @@ def validar_conflito_reservas(
 
 # REGRA 4: cancelamento só até X horas antes
 def pode_cancelar(reserva: Reserva, horas_limite: int = 2) -> bool:
+    """Permitir cancelar apenas até `horas_limite` horas antes do início.
+
+    `timezone.now()` é *aware* quando USE_TZ=True. Como `datetime.combine()` cria
+    um datetime *naive*, temos de o tornar *aware* para evitar:
+    "can't compare offset-naive and offset-aware datetimes".
+    """
+
     inicio = datetime.combine(reserva.data, reserva.hora_inicio)
+    if timezone.is_naive(inicio):
+        inicio = timezone.make_aware(inicio, timezone.get_current_timezone())
+
     limite = inicio - timedelta(hours=horas_limite)
     return timezone.now() < limite
 

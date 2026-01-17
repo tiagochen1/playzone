@@ -6,34 +6,29 @@
   {% if modo == "criar" %}Adicionar Campo{% else %}Editar Campo{% endif %}
 </div>
 
-<div class="card p-4">
-  <form method="post">
-    {% csrf_token %}
-    {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
+<form method="post" enctype="multipart/form-data" class="form-stack">
+  {% csrf_token %}
 
-    <div class="mb-3">
-      {{ form.nome.label_tag }}
-      {{ form.nome }}
-    </div>
+  {% if form.non_field_errors %}
+    <div style="color:#b00020;font-weight:600;">{{ form.non_field_errors }}</div>
+  {% endif %}
 
-    <div class="mb-3">
-      {{ form.desportos.label_tag }}
-      {{ form.desportos }}
-      <div class="text-muted small mt-1">Seleciona 1 ou mais desportos.</div>
-    </div>
+  {{ form.nome }}
+  {{ form.desportos }}
+  <div class="helper">Seleciona 1 ou mais desportos.</div>
+  {{ form.preco_hora }}
+  {{ form.estado }}
 
-    <div class="mb-3">
-      {{ form.preco_hora.label_tag }}
-      {{ form.preco_hora }}
-    </div>
+  <div style="margin-top:6px;">
+    <div style="font-weight:700;margin-bottom:6px;">Imagem do campo</div>
+    {{ form.foto_upload }}
+    <div class="helper" style="margin-top:6px;">Opcional: faz upload de uma imagem. Se não escolheres, podes indicar o caminho manualmente.</div>
+    {{ form.foto }}
+  </div>
 
-    <div class="mb-3">
-      {{ form.estado.label_tag }}
-      {{ form.estado }}
-    </div>
-
-    <button class="btn btn-primary px-4">Guardar</button>
-    <a class="btn btn-outline-secondary px-4" href="{% url 'campos:admin_campos_list' %}">Voltar</a>
-  </form>
-</div>
+  <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:8px;">
+    <a class="btn btn-outline-secondary" href="{% url 'campos:admin_campos_list' %}">Voltar</a>
+    <button class="btn btn-primary" type="submit">Guardar</button>
+  </div>
+</form>
 {% endblock %}

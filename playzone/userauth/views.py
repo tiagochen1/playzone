@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView
-from django.contrib.auth import login
+from django.contrib.auth import login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 
-from .forms import RegisterForm
+from .forms import RegisterForm, CustomPasswordResetForm
 
 from django.contrib.auth.views import (
     PasswordResetView,
@@ -38,8 +38,10 @@ def register_view(request):
 
 class UserPasswordResetView(PasswordResetView):
     template_name = "userauth/password_reset.html"
-    email_template_name = "userauth/emails/password_reset_email.txt"
-    subject_template_name = "userauth/emails/password_reset_subject.txt"
+    form_class = CustomPasswordResetForm
+    # Templates vivem em playzone/userauth/templates/
+    email_template_name = "email/password_reset_email.txt"
+    subject_template_name = "email/password_reset_subject.txt"
     success_url = reverse_lazy("userauth:password_reset_done")
 
 
@@ -56,9 +58,12 @@ class UserPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = "userauth/password_reset_complete.html"
 
 
-def password_reset_view(request):
-    return render(request, "userauth/password_reset.html")
-
 @login_required #impede os utilizadores que não tem conta acedam esta pagina
 def profile_view(request):
     return render(request, "userauth/profile.html")
+
+
+def logout_view(request):
+    """Simple logout that accepts GET (avoids HTTP 405 on /logout/)."""
+    auth_logout(request)
+    return redirect("campos:campos_list")
