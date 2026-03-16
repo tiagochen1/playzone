@@ -1,4 +1,6 @@
 # PlayZone (Django 5 + PostgreSQL 16)
+# Site para reservas campos desportivos online
+# Projeto desenvolvido com assistência da inteligência artificial como ferramenta de aprendizagem
 
 Projeto PlayZone com:
 - Django >= 5 (MTV)
